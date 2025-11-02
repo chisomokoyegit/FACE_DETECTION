@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Face Emotion Detection</title>
+</head>
+<body>
+  <h1>Face Emotion Detection</h1>
+
+  <p>Upload a face image (jpg, png, etc.). The model will predict the emotion.</p>
+
+  <form action="/" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept="image/*" required>
+    <button type="submit">Upload & Predict</button>
+  </form>
+
+  {% if prediction %}
+    <hr>
+    <h2>Prediction</h2>
+    <p><strong>Emotion:</strong> {{ prediction }}</p>
+
+    {% if image_path %}
+      <p><strong>Uploaded image:</strong></p>
+      <!-- When Flask sends a filesystem path (e.g. "static/uploads/filename.jpg"),
+           the browser can load it because static/ is served by Flask. -->
+      <img src="{{ image_path }}" alt="Uploaded image" style="max-width:320px; height:auto;">
+    {% endif %}
+  {% endif %}
+
+  {% if error %}
+    <p style="color:darkred"><strong>Error:</strong> {{ error }}</p>
+  {% endif %}
+</body>
+</html>
+
